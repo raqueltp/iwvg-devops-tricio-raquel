@@ -2,6 +2,10 @@ package es.upm.miw.devops.code;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SearchesTest {
@@ -62,6 +66,39 @@ public class SearchesTest {
     void testFindUserFamilyNameByAllNegativeSignFractionDistinct_none() {
         assertTrue(searches.findUserFamilyNameByAllNegativeSignFractionDistinct()
                 .anyMatch(family -> family.equals("Negativa")));
+    }
+
+    @Test
+    void testFindUserFamilyNameInitialByAnyProperFraction_containsExpectedInitials() {
+        List<String> result = searches.findUserFamilyNameInitialByAnyProperFraction()
+                .collect(Collectors.toList());
+
+        assertTrue(result.contains("B")); // Blanco
+        assertTrue(result.contains("L")); // López
+    }
+
+    @Test
+    void testFindUserFamilyNameInitialByAnyProperFraction_notContainsTorres() {
+        List<String> result = searches.findUserFamilyNameInitialByAnyProperFraction()
+                .collect(Collectors.toList());
+
+        assertFalse(result.contains("T")); // Torres no tiene fracciones propias
+    }
+
+    @Test
+    void testFindUserFamilyNameInitialByAnyProperFraction_includesFernandez() {
+        List<String> result = searches.findUserFamilyNameInitialByAnyProperFraction()
+                .collect(Collectors.toList());
+
+        assertTrue(result.contains("F")); // 0/1 es propia → debe incluir "F"
+    }
+
+    @Test
+    void testFindUserFamilyNameInitialByAnyProperFraction_expectedInitialsIgnoringDuplicates() {
+        Set<String> initials = searches.findUserFamilyNameInitialByAnyProperFraction()
+                .collect(Collectors.toSet());
+
+        assertEquals(Set.of("B", "L", "F", "N"), initials);
     }
 
 }
