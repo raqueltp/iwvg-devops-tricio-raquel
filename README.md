@@ -12,7 +12,7 @@
 ### Estado del código
 [![CI](https://github.com/raqueltp/iwvg-devops-tricio-raquel/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/raqueltp/iwvg-devops-tricio-raquel/actions/workflows/continuous-integration.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=raqueltp_iwvg-devops-tricio-raquel&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=raqueltp_iwvg-devops-tricio-raquel)
-[![Render broken](https://iwvg-devops-latest.onrender.com/version-badge)](https://iwvg-devops-latest.onrender.com/swagger-ui.html)
+[![Render broken](https://iwvg-devops-tricio-raquel.onrender.com/version-badge)](https://iwvg-devops-tricio-raquel.onrender.com/swagger-ui.html)
 
 
 ### Tecnologías necesarias
