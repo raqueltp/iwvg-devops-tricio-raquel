@@ -1,6 +1,7 @@
 package es.upm.miw.devops.code;
 
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class Searches {
 
@@ -40,6 +41,16 @@ public class Searches {
                     }
                 })
                 .orElse(null);
+    }
+
+    public Stream<String> findUserFamilyNameByAllNegativeSignFractionDistinct() {
+        return new UsersDatabase().findAll()
+                .filter(user -> user.getFractions().stream()
+                        .filter(Objects::nonNull)
+                        .allMatch(f -> f.getNumerator() * f.getDenominator() < 0)
+                )
+                .map(User::getFamilyName)
+                .distinct();
     }
 
 }
