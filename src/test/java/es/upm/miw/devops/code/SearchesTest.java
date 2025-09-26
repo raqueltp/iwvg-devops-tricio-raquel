@@ -57,4 +57,11 @@ public class SearchesTest {
         Fraction result = searches.findFirstFractionDivisionByUserId("999");
         assertNull(result);
     }
+
+    @Test
+    void testFindUserFamilyNameByAllNegativeSignFractionDistinct_none() {
+        assertTrue(searches.findUserFamilyNameByAllNegativeSignFractionDistinct()
+                .anyMatch(family -> family.equals("Negativa")));
+    }
+
 }
