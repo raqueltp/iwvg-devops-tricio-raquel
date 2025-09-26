@@ -14,4 +14,32 @@ public class Searches {
                 .orElse(null);
     }
 
+    public Fraction findFirstFractionDivisionByUserId(String id) {
+        return new UsersDatabase().findAll()
+                .filter(user -> id.equals(user.getId()))
+                .findFirst()
+                .map(User::getFractions)
+                .map(list -> list.stream()
+                        .filter(Objects::nonNull)
+                        .limit(2)
+                        .collect(java.util.stream.Collectors.toList())
+                )
+                .filter(fs -> fs.size() == 2)  // necesitamos 2 fracciones
+                .map(fs -> {
+                    Fraction f1 = fs.get(0);
+                    Fraction f2 = fs.get(1);
+                    // Evitamos resultados inválidos de entrada (denominadores 0)
+                    if (f1.getDenominator() == 0 || f2.getDenominator() == 0) {
+                        return null;
+                    }
+                    try {
+                        return f1.divide(f2);   // usa tu Fraction.divide (sin normalizar signos)
+                    } catch (ArithmeticException e) {
+                        // divide lanza si el numerador del divisor es 0
+                        return null;
+                    }
+                })
+                .orElse(null);
+    }
+
 }
