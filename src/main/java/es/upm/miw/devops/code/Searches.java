@@ -8,10 +8,14 @@ public class Searches {
     public Fraction findFirstFractionSubtractionByUserName(String name) {
         return new UsersDatabase().findAll()
                 .filter(user -> name.equals(user.getName()))
-                .flatMap(user -> user.getFractions().stream())
-                .filter(Objects::nonNull)
-                .filter(fraction -> fraction.getNumerator() * fraction.getDenominator() < 0)
-                .findFirst()
+                .findFirst() // 👈 solo el primer usuario con ese nombre
+                .map(User::getFractions)
+                .map(list -> list.stream()
+                        .filter(Objects::nonNull)
+                        .filter(f -> f.getNumerator() * f.getDenominator() < 0)
+                        .findFirst()
+                        .orElse(null)
+                )
                 .orElse(null);
     }
 
