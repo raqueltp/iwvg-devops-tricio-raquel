@@ -83,4 +83,46 @@ class FractionTest {
         assertTrue(s.contains("denominator=3"));
         assertTrue(s.startsWith("Fraction{"));
     }
+
+    @Test
+    void testIsProper() {
+        assertTrue(new Fraction(3, 4).isProper());     // propia
+        assertFalse(new Fraction(5, 5).isProper());    // igual, no propia
+        assertFalse(new Fraction(7, 3).isProper());    // impropia
+    }
+
+    @Test
+    void testIsImproper() {
+        assertTrue(new Fraction(7, 3).isImproper());   // impropia
+        assertFalse(new Fraction(5, 5).isImproper());  // igual, no impropia
+        assertFalse(new Fraction(3, 4).isImproper());  // propia
+    }
+
+    @Test
+    void testIsEquivalent() {
+        assertTrue(new Fraction(1, 2).isEquivalent(new Fraction(2, 4)));
+        assertTrue(new Fraction(-1, 2).isEquivalent(new Fraction(1, -2)));
+        assertFalse(new Fraction(2, 3).isEquivalent(new Fraction(3, 5)));
+    }
+
+    @Test
+    void testAdd() {
+        Fraction sum = new Fraction(1, 2).add(new Fraction(1, 3)); // 5/6
+        assertEquals(5, sum.getNumerator());
+        assertEquals(6, sum.getDenominator());
+    }
+
+    @Test
+    void testMultiply() {
+        Fraction prod = new Fraction(2, 3).multiply(new Fraction(3, 5)); // 6/15
+        assertEquals(6, prod.getNumerator());
+        assertEquals(15, prod.getDenominator());
+    }
+
+    @Test
+    void testDivide() {
+        Fraction div = new Fraction(2, 3).divide(new Fraction(3, 5)); // (2/3)*(5/3)=10/9
+        assertEquals(10, div.getNumerator());
+        assertEquals(9, div.getDenominator());
+    }
 }
